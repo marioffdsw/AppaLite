@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppaLiteModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AppaLiteModelStoreContainer">
+    <EntitySet Name="Articulos" EntityType="AppaLiteModel.Store.Articulos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prestamos" EntityType="AppaLiteModel.Store.Prestamos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Locales" EntityType="AppaLiteModel.Store.Locales" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Marcas" EntityType="AppaLiteModel.Store.Marcas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empleados" EntityType="AppaLiteModel.Store.Empleados" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Movimientos" EntityType="AppaLiteModel.Store.Movimientos" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmpleadoMovimiento" Association="AppaLiteModel.Store.EmpleadoMovimiento">
+      <End Role="Empleado" EntitySet="Empleados" />
+      <End Role="Movimiento" EntitySet="Movimientos" />
+    </AssociationSet>
+    <AssociationSet Name="ArticuloPrestamo" Association="AppaLiteModel.Store.ArticuloPrestamo">
+      <End Role="Articulo" EntitySet="Articulos" />
+      <End Role="Prestamo" EntitySet="Prestamos" />
+    </AssociationSet>
+    <AssociationSet Name="PrestamoLocal" Association="AppaLiteModel.Store.PrestamoLocal">
+      <End Role="Prestamo" EntitySet="Prestamos" />
+      <End Role="Local" EntitySet="Locales" />
+    </AssociationSet>
+    <AssociationSet Name="ArticuloMarca" Association="AppaLiteModel.Store.ArticuloMarca">
+      <End Role="Articulo" EntitySet="Articulos" />
+      <End Role="Marca" EntitySet="Marcas" />
+    </AssociationSet>
+    <AssociationSet Name="MovimientoLocal" Association="AppaLiteModel.Store.MovimientoLocal">
+      <End Role="Movimiento" EntitySet="Movimientos" />
+      <End Role="Local" EntitySet="Locales" />
+    </AssociationSet>
+    <AssociationSet Name="PrestamoMovimiento" Association="AppaLiteModel.Store.PrestamoMovimiento">
+      <End Role="Prestamo" EntitySet="Prestamos" />
+      <End Role="Movimiento" EntitySet="Movimientos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Articulos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Referencia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Talla" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Marca_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prestamos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Articulo_Id" Type="int" Nullable="false" />
+    <Property Name="Origen_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locales">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Icono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Marcas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Icono" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movimientos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hora" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PrestamoId" Type="int" Nullable="false" />
+    <Property Name="EmpleadoMovimiento_Movimiento_Id" Type="int" Nullable="false" />
+    <Property Name="Destino_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EmpleadoMovimiento">
+    <End Role="Empleado" Type="AppaLiteModel.Store.Empleados" Multiplicity="1" />
+    <End Role="Movimiento" Type="AppaLiteModel.Store.Movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="EmpleadoMovimiento_Movimiento_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticuloPrestamo">
+    <End Role="Articulo" Type="AppaLiteModel.Store.Articulos" Multiplicity="1" />
+    <End Role="Prestamo" Type="AppaLiteModel.Store.Prestamos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="Articulo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PrestamoLocal">
+    <End Role="Prestamo" Type="AppaLiteModel.Store.Prestamos" Multiplicity="*" />
+    <End Role="Local" Type="AppaLiteModel.Store.Locales" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="Origen_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ArticuloMarca">
+    <End Role="Articulo" Type="AppaLiteModel.Store.Articulos" Multiplicity="*" />
+    <End Role="Marca" Type="AppaLiteModel.Store.Marcas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Marca">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Articulo">
+        <PropertyRef Name="Marca_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MovimientoLocal">
+    <End Role="Movimiento" Type="AppaLiteModel.Store.Movimientos" Multiplicity="*" />
+    <End Role="Local" Type="AppaLiteModel.Store.Locales" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="Destino_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PrestamoMovimiento">
+    <End Role="Prestamo" Type="AppaLiteModel.Store.Prestamos" Multiplicity="1" />
+    <End Role="Movimiento" Type="AppaLiteModel.Store.Movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestamo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="PrestamoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AppaLiteModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="AppaLiteModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulos" EntityType="AppaLiteModel.Articulo" />
+          <EntitySet Name="Prestamos" EntityType="AppaLiteModel.Prestamo" />
+          <EntitySet Name="Locales" EntityType="AppaLiteModel.Local" />
+          <EntitySet Name="Marcas" EntityType="AppaLiteModel.Marca" />
+          <EntitySet Name="Empleados" EntityType="AppaLiteModel.Empleado" />
+          <EntitySet Name="Movimientos" EntityType="AppaLiteModel.Movimiento" />
+          <AssociationSet Name="EmpleadoMovimiento" Association="AppaLiteModel.EmpleadoMovimiento">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="Movimiento" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="ArticuloPrestamo" Association="AppaLiteModel.ArticuloPrestamo">
+            <End Role="Articulo" EntitySet="Articulos" />
+            <End Role="Prestamo" EntitySet="Prestamos" />
+          </AssociationSet>
+          <AssociationSet Name="PrestamoLocal" Association="AppaLiteModel.PrestamoLocal">
+            <End Role="Prestamo" EntitySet="Prestamos" />
+            <End Role="Local" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="ArticuloMarca" Association="AppaLiteModel.ArticuloMarca">
+            <End Role="Articulo" EntitySet="Articulos" />
+            <End Role="Marca" EntitySet="Marcas" />
+          </AssociationSet>
+          <AssociationSet Name="MovimientoLocal" Association="AppaLiteModel.MovimientoLocal">
+            <End Role="Movimiento" EntitySet="Movimientos" />
+            <End Role="Local" EntitySet="Locales" />
+          </AssociationSet>
+          <AssociationSet Name="PrestamoMovimiento" Association="AppaLiteModel.PrestamoMovimiento">
+            <End Role="Prestamo" EntitySet="Prestamos" />
+            <End Role="Movimiento" EntitySet="Movimientos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Referencia" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Talla" Type="String" Nullable="false" />
+          <NavigationProperty Name="Marca" Relationship="AppaLiteModel.ArticuloMarca" FromRole="Articulo" ToRole="Marca" />
+        </EntityType>
+        <EntityType Name="Prestamo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Articulo" Relationship="AppaLiteModel.ArticuloPrestamo" FromRole="Prestamo" ToRole="Articulo" />
+          <NavigationProperty Name="Origen" Relationship="AppaLiteModel.PrestamoLocal" FromRole="Prestamo" ToRole="Local" />
+          <NavigationProperty Name="Movimiento" Relationship="AppaLiteModel.PrestamoMovimiento" FromRole="Prestamo" ToRole="Movimiento" />
+        </EntityType>
+        <EntityType Name="Local">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Icono" Type="String" Nullable="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" />
+          <NavigationProperty Name="Prestamo" Relationship="AppaLiteModel.PrestamoLocal" FromRole="Local" ToRole="Prestamo" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Icono" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Cedula" Type="String" Nullable="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" />
+          <Property Name="Foto" Type="String" Nullable="false" />
+          <NavigationProperty Name="Movimiento" Relationship="AppaLiteModel.EmpleadoMovimiento" FromRole="Empleado" ToRole="Movimiento" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado" Type="String" Nullable="false" />
+          <Property Name="Fecha" Type="String" Nullable="false" />
+          <Property Name="Hora" Type="String" Nullable="false" />
+          <NavigationProperty Name="Destino" Relationship="AppaLiteModel.MovimientoLocal" FromRole="Movimiento" ToRole="Local" />
+          <Property Name="PrestamoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EmpleadoMovimiento">
+          <End Type="AppaLiteModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="AppaLiteModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+        </Association>
+        <Association Name="ArticuloPrestamo">
+          <End Type="AppaLiteModel.Articulo" Role="Articulo" Multiplicity="1" />
+          <End Type="AppaLiteModel.Prestamo" Role="Prestamo" Multiplicity="*" />
+        </Association>
+        <Association Name="PrestamoLocal">
+          <End Type="AppaLiteModel.Prestamo" Role="Prestamo" Multiplicity="*" />
+          <End Type="AppaLiteModel.Local" Role="Local" Multiplicity="1" />
+        </Association>
+        <Association Name="ArticuloMarca">
+          <End Type="AppaLiteModel.Articulo" Role="Articulo" Multiplicity="*" />
+          <End Type="AppaLiteModel.Marca" Role="Marca" Multiplicity="1" />
+        </Association>
+        <Association Name="MovimientoLocal">
+          <End Type="AppaLiteModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+          <End Type="AppaLiteModel.Local" Role="Local" Multiplicity="1" />
+        </Association>
+        <Association Name="PrestamoMovimiento">
+          <End Type="AppaLiteModel.Prestamo" Role="Prestamo" Multiplicity="1" />
+          <End Type="AppaLiteModel.Movimiento" Role="Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestamo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="PrestamoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AppaLiteModelStoreContainer" CdmEntityContainer="AppaLiteModelContainer">
+    <EntitySetMapping Name="Articulos">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Articulo)">
+        <MappingFragment StoreEntitySet="Articulos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Talla" ColumnName="Talla" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prestamos">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Prestamo)">
+        <MappingFragment StoreEntitySet="Prestamos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locales">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Local)">
+        <MappingFragment StoreEntitySet="Locales">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Icono" ColumnName="Icono" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marcas">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Marca)">
+        <MappingFragment StoreEntitySet="Marcas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Icono" ColumnName="Icono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleados">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Empleado)">
+        <MappingFragment StoreEntitySet="Empleados">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movimientos">
+      <EntityTypeMapping TypeName="IsTypeOf(AppaLiteModel.Movimiento)">
+        <MappingFragment StoreEntitySet="Movimientos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Hora" ColumnName="Hora" />
+          <ScalarProperty Name="PrestamoId" ColumnName="PrestamoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EmpleadoMovimiento" TypeName="AppaLiteModel.EmpleadoMovimiento" StoreEntitySet="Movimientos">
+      <EndProperty Name="Empleado">
+        <ScalarProperty Name="Id" ColumnName="EmpleadoMovimiento_Movimiento_Id" />
+      </EndProperty>
+      <EndProperty Name="Movimiento">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ArticuloPrestamo" TypeName="AppaLiteModel.ArticuloPrestamo" StoreEntitySet="Prestamos">
+      <EndProperty Name="Articulo">
+        <ScalarProperty Name="Id" ColumnName="Articulo_Id" />
+      </EndProperty>
+      <EndProperty Name="Prestamo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PrestamoLocal" TypeName="AppaLiteModel.PrestamoLocal" StoreEntitySet="Prestamos">
+      <EndProperty Name="Local">
+        <ScalarProperty Name="Id" ColumnName="Origen_Id" />
+      </EndProperty>
+      <EndProperty Name="Prestamo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ArticuloMarca" TypeName="AppaLiteModel.ArticuloMarca" StoreEntitySet="Articulos">
+      <EndProperty Name="Marca">
+        <ScalarProperty Name="Id" ColumnName="Marca_Id" />
+      </EndProperty>
+      <EndProperty Name="Articulo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MovimientoLocal" TypeName="AppaLiteModel.MovimientoLocal" StoreEntitySet="Movimientos">
+      <EndProperty Name="Local">
+        <ScalarProperty Name="Id" ColumnName="Destino_Id" />
+      </EndProperty>
+      <EndProperty Name="Movimiento">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
