@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/11/2015 15:51:07
+-- Date Created: 08/13/2015 15:47:44
 -- Generated from EDMX file: C:\Users\ADRY\Source\Repos\AppaLite\AppaLiteModel\AppaLiteModel.edmx
 -- --------------------------------------------------
 
@@ -112,11 +112,10 @@ GO
 CREATE TABLE [dbo].[Movimientos] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Estado] nvarchar(max)  NOT NULL,
-    [Fecha] nvarchar(max)  NOT NULL,
-    [Hora] nvarchar(max)  NOT NULL,
-    [PrestamoId] int  NOT NULL,
+    [Fecha] datetime  NOT NULL,
     [EmpleadoMovimiento_Movimiento_Id] int  NOT NULL,
-    [Destino_Id] int  NOT NULL
+    [Destino_Id] int  NOT NULL,
+    [Prestamo_Id] int  NOT NULL
 );
 GO
 
@@ -239,10 +238,10 @@ ON [dbo].[Movimientos]
     ([Destino_Id]);
 GO
 
--- Creating foreign key on [PrestamoId] in table 'Movimientos'
+-- Creating foreign key on [Prestamo_Id] in table 'Movimientos'
 ALTER TABLE [dbo].[Movimientos]
 ADD CONSTRAINT [FK_PrestamoMovimiento]
-    FOREIGN KEY ([PrestamoId])
+    FOREIGN KEY ([Prestamo_Id])
     REFERENCES [dbo].[Prestamos]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -251,7 +250,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_PrestamoMovimiento'
 CREATE INDEX [IX_FK_PrestamoMovimiento]
 ON [dbo].[Movimientos]
-    ([PrestamoId]);
+    ([Prestamo_Id]);
 GO
 
 -- --------------------------------------------------
