@@ -16,9 +16,10 @@ namespace AppaLiteModel
     {
         public int Id { get; set; }
         public string Estado { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
+        public string Hora { get; set; }
+        public int PrestamoId { get; set; }
     
         public virtual Local Destino { get; set; }
-        public virtual Prestamo Prestamo { get; set; }
     }
 }
