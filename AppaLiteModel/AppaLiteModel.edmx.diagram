@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bc0c0c50909043e8b10b8525784d90dd" Name="Diagram1" ZoomLevel="93" >
+        <EntityTypeShape EntityType="AppaLiteModel.Articulo" Width="1.5" PointX="0.875" PointY="0.5" />
+        <EntityTypeShape EntityType="AppaLiteModel.Prestamo" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AppaLiteModel.Local" Width="1.5" PointX="5.75" PointY="0.5" />
+        <EntityTypeShape EntityType="AppaLiteModel.Marca" Width="1.5" PointX="0.875" PointY="3.125" />
+        <EntityTypeShape EntityType="AppaLiteModel.Empleado" Width="1.5" PointX="5.875" PointY="3.375" />
+        <EntityTypeShape EntityType="AppaLiteModel.Movimiento" Width="1.5" PointX="3.125" PointY="3.25" />
+        <AssociationConnector Association="AppaLiteModel.EmpleadoMovimiento" />
+        <AssociationConnector Association="AppaLiteModel.ArticuloPrestamo" />
+        <AssociationConnector Association="AppaLiteModel.PrestamoLocal" />
+        <AssociationConnector Association="AppaLiteModel.ArticuloMarca" />
+        <AssociationConnector Association="AppaLiteModel.MovimientoLocal" />
+        <AssociationConnector Association="AppaLiteModel.PrestamoMovimiento" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
