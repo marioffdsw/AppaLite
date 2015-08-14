@@ -11,6 +11,13 @@ namespace AppaLite.WebAPI
         {
             // Web API configuration and services
 
+            // Json Formatters Configuration
+            config.Formatters.Remove( config.Formatters.XmlFormatter );
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter
+                .SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
